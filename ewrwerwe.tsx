@@ -1,1 +1,0 @@
-const    foo =  "bar"dfsdf sdfsdfd 23[]p41p3k[mmm2k13]
