@@ -6,6 +6,7 @@ export const metadata = {
   description: 'Интерактивный план-график проекта',
 };
 
+// Скрипт ранней инициализации темы (до гидратации React)
 const THEME_BOOTSTRAP = `
 !function(){
   try{
@@ -20,11 +21,12 @@ const THEME_BOOTSTRAP = `
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru">
+    <html lang="ru" suppressHydrationWarning>
       <head>
+        {/* Встраиваем ранний скрипт темы чтобы не было "мигания" */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
       </head>
       <body className="min-h-screen antialiased bg-slate-50 dark:bg-slate-950">
-
         <ThemeToggle />
         {children}
       </body>

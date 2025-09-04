@@ -37,10 +37,15 @@ export default function ProjectTimeline({ initialData }: { initialData: Stage[] 
     if (!f) return;
     try {
       await importJSON(f);
-    } catch (err: any) {
-      setImportError(err?.message ?? 'Не удалось импортировать файл');
+    } catch (err: unknown) {
+      const msg =
+        err instanceof Error
+          ? err.message
+          : typeof err === 'string'
+          ? err
+          : 'Не удалось импортировать файл';
+      setImportError(msg);
     } finally {
-      // чтобы можно было повторно выбрать тот же файл
       e.currentTarget.value = '';
     }
   };
