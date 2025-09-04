@@ -19,7 +19,7 @@ function normalize(stages: Stage[] | null | undefined): Stage[] {
   if (!Array.isArray(stages)) return [];
   return stages.map((s) => ({
     ...s,
-    substages: (s.substages ?? []).map((sub) => ({
+    subStages: (s.subStages ?? []).map((sub) => ({
       ...sub,
       tasks: (sub.tasks ?? []).map((t) => ({ ...t, isCompleted: Boolean(t.isCompleted) })),
     })),
@@ -86,14 +86,14 @@ export function useProjectData(initialData: Stage[]) {
 
   // -------- мутации (через functional setState)
   const toggleTask = useCallback(
-    (stageId: number, subId: number, taskId: number) => {
+    (stageId: number, subId: string, taskId: number) => {
       update((prev) =>
         prev.map((s) =>
           s.id !== stageId
             ? s
             : {
                 ...s,
-                substages: (s.substages ?? []).map((sub) =>
+                subStages: (s.subStages ?? []).map((sub) =>
                   sub.id !== subId
                     ? sub
                     : {
@@ -119,7 +119,7 @@ export function useProjectData(initialData: Stage[]) {
             : {
                 ...s,
                 done,
-                substages: (s.substages ?? []).map((sub) => ({
+                subStages: (s.subStages ?? []).map((sub) => ({
                   ...sub,
                   tasks: (sub.tasks ?? []).map((t) => ({ ...t, isCompleted: done })),
                 })),
@@ -135,7 +135,7 @@ export function useProjectData(initialData: Stage[]) {
       prev.map((s) => ({
         ...s,
         done: false,
-        substages: (s.substages ?? []).map((sub) => ({
+        subStages: (s.subStages ?? []).map((sub) => ({
           ...sub,
           tasks: (sub.tasks ?? []).map((t) => ({ ...t, isCompleted: false })),
         })),

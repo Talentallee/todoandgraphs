@@ -153,14 +153,16 @@ export default function ProjectTimeline({ initialData }: { initialData: Stage[] 
 
           return (
             <StagePanel
-              key={stage.id}
-              stage={stage}
-              stageProgress={currentStageProgress}
-              isActive={isActive}
-              onToggle={() => setActiveStageId(isActive ? null : stage.id)}
-              onSetStageDone={(done) => setStageDone(stage.id, done)}
-              onToggleTask={(subId, taskId) => toggleTask(stage.id, subId, taskId)}
-            />
+  key={stage.id}
+  stage={stage}
+  stageProgress={currentStageProgress}
+  isActive={isActive}
+  onToggle={() => setActiveStageId(isActive ? null : stage.id)}
+  onSetStageDone={(done) => setStageDone(stage.id, done)}
+  onToggleTask={(subId, taskId) =>
+    toggleTask(stage.id, subId, Number(taskId))  // ← важное приведение типов
+  }
+/>
           );
         })}
       </div>

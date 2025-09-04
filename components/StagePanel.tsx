@@ -35,8 +35,8 @@ const StagePanel: FC<Props> = ({
         <div className="flex-grow">
           <div className="flex items-center gap-3">
             <span
-              className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg
-              ${stageProgress === 100
+              className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg ${
+                stageProgress === 100
                   ? 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300'
                   : 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300'
               }`}
@@ -51,9 +51,9 @@ const StagePanel: FC<Props> = ({
               <h3 className="font-semibold text-lg text-slate-900 dark:text-slate-100">
                 {stage.title}
               </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                {stage.description}
-              </p>
+              {stage.description && (
+                <p className="text-sm text-slate-600 dark:text-slate-400">{stage.description}</p>
+              )}
             </div>
           </div>
 
@@ -68,7 +68,9 @@ const StagePanel: FC<Props> = ({
         </div>
 
         <ChevronDown
-          className={`w-6 h-6 text-slate-500 dark:text-slate-400 transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`}
+          className={`w-6 h-6 text-slate-500 dark:text-slate-400 transition-transform duration-300 ${
+            isActive ? 'rotate-180' : ''
+          }`}
         />
       </button>
 
@@ -100,25 +102,17 @@ const StagePanel: FC<Props> = ({
 
           {/* Meta */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-sm">
-            <InfoCard
-              icon={() => <span className="w-5 inline-block">📅</span>}
-              title="Сроки этапа"
-              value={stage.dates}
-            />
-            <InfoCard
-              icon={() => <span className="w-5 inline-block">⏱</span>}
-              title="Общая длительность"
-              value={stage.duration}
-            />
+            <InfoCard icon={() => <span className="w-5 inline-block">📅</span>} title="Сроки этапа" value={stage.dates} />
+            <InfoCard icon={() => <span className="w-5 inline-block">⏱</span>} title="Общая длительность" value={stage.duration} />
           </div>
 
           {/* Sub-stages */}
           <div className="space-y-6">
-            {stage.subStages.map((ss) => (
-              <SubStageCard
-                key={ss.id}
-                subStage={ss}
-                onToggleTask={(taskId) => onToggleTask(ss.id, taskId)}
+          {(stage.subStages ?? []).map((ss) => (
+    <SubStageCard
+      key={ss.id}
+      subStage={ss}
+      onToggleTask={(taskId) => onToggleTask(ss.id, Number(taskId))}
               />
             ))}
           </div>
