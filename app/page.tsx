@@ -8,3 +8,4 @@ export default function Page() {
     </main>
   );
 }
+const    foo =  "bar"
