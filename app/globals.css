@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Высота на всю страницу */
+html, body, :root { height: 100%; }
+
+/* --- ВАЖНО ---
+   Не задаём фон здесь руками, чтобы не перетёрнуть классы Tailwind.
+   Фон задаём классами в <body>: bg-slate-50 dark:bg-slate-950
+*/
+
+/* Цвета для графика (оставайся, если используешь) */
+:root {
+  --chart-grid: #e2e8f0;   /* slate-200 */
+  --chart-axis: #64748b;   /* slate-500 */
+  --chart-bar:  #2563eb;   /* blue-600 */
+}
+.dark {
+  --chart-grid: #334155;   /* slate-700 */
+  --chart-axis: #94a3b8;   /* slate-400 */
+  --chart-bar:  #60a5fa;   /* blue-400 */
+}

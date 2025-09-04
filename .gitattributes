@@ -1,0 +1,27 @@
+# === End of line normalization ===
+* text=auto eol=lf
+
+# === Diff/merge для кода ===
+*.js     text diff=javascript
+*.jsx    text diff=javascript
+*.ts     text diff=typescript
+*.tsx    text diff=typescript
+*.json   text
+*.css    text
+*.scss   text
+*.md     text
+*.yml    text
+*.yaml   text
+
+# === Бинарные файлы ===
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.webp   binary
+*.svg    text
+*.pdf    binary
+*.zip    binary
+*.gz     binary
+*.tar    binary
