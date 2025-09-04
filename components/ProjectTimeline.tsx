@@ -1,4 +1,5 @@
 'use client';
+
 import dynamic from 'next/dynamic';
 import ProgressBar from '@/components/ProgressBar';
 import StagePanel from '@/components/StagePanel';
@@ -29,6 +30,7 @@ export default function ProjectTimeline({ initialData }: { initialData: Stage[] 
   const [importError, setImportError] = useState<string | null>(null);
 
   const onImportClick = () => fileRef.current?.click();
+
   const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setImportError(null);
     const f = e.target.files?.[0];
@@ -38,7 +40,8 @@ export default function ProjectTimeline({ initialData }: { initialData: Stage[] 
     } catch (err: any) {
       setImportError(err?.message ?? 'Не удалось импортировать файл');
     } finally {
-      e.target.value = '';
+      // чтобы можно было повторно выбрать тот же файл
+      e.currentTarget.value = '';
     }
   };
 
@@ -70,43 +73,37 @@ export default function ProjectTimeline({ initialData }: { initialData: Stage[] 
           </button>
 
           {/* Экспорт */}
-          {exportJSON && (
-            <button
-              onClick={exportJSON}
-              className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium
-                         bg-blue-600 text-white hover:bg-blue-500
-                         dark:bg-blue-500 dark:hover:bg-blue-400
-                         focus:outline-none shadow-md"
-              title="Экспортировать прогресс в JSON"
-            >
-              <Download className="h-4 w-4" />
-              Экспорт
-            </button>
-          )}
+          <button
+            onClick={exportJSON}
+            className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium
+                       bg-blue-600 text-white hover:bg-blue-500
+                       dark:bg-blue-500 dark:hover:bg-blue-400
+                       focus:outline-none shadow-md"
+            title="Экспортировать прогресс в JSON"
+          >
+            <Download className="h-4 w-4" />
+            Экспорт
+          </button>
 
           {/* Импорт */}
-          {importJSON && (
-            <>
-              <button
-                onClick={onImportClick}
-                className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium
-                           bg-emerald-600 text-white hover:bg-emerald-500
-                           dark:bg-emerald-500 dark:hover:bg-emerald-400
-                           focus:outline-none shadow-md"
-                title="Импортировать прогресс из JSON"
-              >
-                <Upload className="h-4 w-4" />
-                Импорт
-              </button>
-              <input
-                ref={fileRef}
-                type="file"
-                accept="application/json"
-                className="hidden"
-                onChange={onFileChange}
-              />
-            </>
-          )}
+          <button
+            onClick={onImportClick}
+            className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium
+                       bg-emerald-600 text-white hover:bg-emerald-500
+                       dark:bg-emerald-500 dark:hover:bg-emerald-400
+                       focus:outline-none shadow-md"
+            title="Импортировать прогресс из JSON"
+          >
+            <Upload className="h-4 w-4" />
+            Импорт
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="application/json"
+            className="hidden"
+            onChange={onFileChange}
+          />
         </div>
       </header>
 
